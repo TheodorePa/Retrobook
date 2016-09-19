@@ -1,0 +1,37 @@
+body{
+  background-image: url("https://i.imgur.com/cDu9h9L.png");
+  background-color: #9f9c62;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  float: none; 
+  background-attachment: fixed;
+  background-position: center;
+    }
+
+h2 {
+  text-align: center;
+}
+
+#app {
+  font-family: "Times New Roman", Times, serif;
+  margin: 0;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);  
+}
+
+.transition {
+    -webkit-transform: scale(1.6); 
+    -moz-transform: scale(1.6);
+    -o-transform: scale(1.6);
+    transform: scale(1.6);
+}
+
+form{  
+	-webkit-transition: all .4s ease-in-out;
+	-moz-transition: all .4s ease-in-out;
+	-o-transition: all .4s ease-in-out;
+	-ms-transition: all .4s ease-in-out;
+}
