@@ -34,13 +34,16 @@ a {
 }
 
 .btn1 {
+filter: grayscale(100%);
+	width:120px;
+	height:30px;
 	display: inline-block;
 	text-transform: uppercase;
 	border: 2px solid #2c3e50;
 	margin-top: 100px; 
-	font-size: 0.7em;
+	font-size: 1.2em;
 	font-weight: 700;
-	padding: 0.1em 0.4em;
+	padding: 0.3em 0.4em;
 	text-align: center;
 	-webkit-transition: color 0.3s, border-color 0.3s;
 	-moz-transition: color 0.3s, border-color 0.3s;
@@ -57,13 +60,16 @@ a {
 }
 
 .btn2 {
+	filter: grayscale(100%);
+	width:120px;
+	height:30px;
 	display: inline-block;
 	text-transform: uppercase;
 	border: 2px solid #2c3e50;
 	margin-top: 100px; 
-	font-size: 0.7em;
+	font-size: 1.2em;
 	font-weight: 700;
-	padding: 0.1em 0.4em;
+	padding: 0.3em 0.4em;
 	text-align: center;
 	-webkit-transition: color 0.3s, border-color 0.3s;
 	-moz-transition: color 0.3s, border-color 0.3s;
@@ -122,9 +128,10 @@ Table of Contents
 */
 
 .book {
+	filter: grayscale(100%);
 	position: relative;
-	width: 160px; 
-	height: 220px;
+	width: 280px; 
+	height: 400px;
 	-webkit-perspective: 1000px;
 	-moz-perspective: 1000px;
 	perspective: 1000px;
@@ -354,7 +361,7 @@ Table of Contents
 	transform: rotateX(90deg) rotateZ(90deg) translateZ(80px) translateX(-2px) translateY(-78px);
 }
 .hardcover_front li:last-child:before {
-	box-shadow: 0px 0px 30px 5px #333;
+	
 	-webkit-transform: rotateX(90deg) rotateZ(90deg) translateZ(-140px) translateX(-2px) translateY(-78px);
 	-moz-transform: rotateX(90deg) rotateZ(90deg) translateZ(-140px) translateX(-2px) translateY(-78px);
 	transform: rotateX(90deg) rotateZ(90deg) translateZ(-140px) translateX(-2px) translateY(-78px);
@@ -392,7 +399,7 @@ Table of Contents
 }
 
 .hardcover_back li:last-child:before {
-	box-shadow: 10px -1px 80px 20px #666;
+	
 	-webkit-transform: rotateX(90deg) rotateZ(90deg) translateZ(-140px) translateX(2px) translateY(-78px);
 	-moz-transform: rotateX(90deg) rotateZ(90deg) translateZ(-140px) translateX(2px) translateY(-78px);
 	transform: rotateX(90deg) rotateZ(90deg) translateZ(-140px) translateX(2px) translateY(-78px);
@@ -451,7 +458,7 @@ Table of Contents
 }
 
 .book_spine li:last-child:before {
-	box-shadow: 5px -1px 100px 40px rgba(0, 0, 0, 0.2);
+	
 	-webkit-transform: rotateX(90deg) rotateZ(90deg) translateZ(-210px) translateX(2px) translateY(-6px);
 	-moz-transform: rotateX(90deg) rotateZ(90deg) translateZ(-210px) translateX(2px) translateY(-6px);
 	transform: rotateX(90deg) rotateZ(90deg) translateZ(-210px) translateX(2px) translateY(-6px);

@@ -16,4 +16,15 @@ $(document).ready(function(){
     }, function() {
         $(".btn2").removeClass('transition');
     });
-});
+     
+    $('a.btn1').fancybox({
+        type: 'iframe',
+        fitToView: true,
+        autoSize: true,
+        openEffect: 'fade',
+        openSpeed: 'slow'
+    });
+    
+  });
+  
+

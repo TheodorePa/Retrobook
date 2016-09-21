@@ -29,9 +29,9 @@ app.post('/signup', function(req, res) {
       });   
     });
 
-app.get('/profile',isLoggedIn, function(req, res) {
+app.get('/signup', function(req, res) {
 
-    res.render('profile.ejs');
+    res.render('signup.ejs');
    
 });
 
