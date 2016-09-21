@@ -24,6 +24,14 @@ $(document).ready(function(){
         openEffect: 'fade',
         openSpeed: 'slow'
     });
+
+       $('a.btn2').fancybox({
+        type: 'iframe',
+        fitToView: true,
+        autoSize: true,
+        openEffect: 'fade',
+        openSpeed: 'slow'
+    });
     
   });
   
