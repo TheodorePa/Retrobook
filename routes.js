@@ -6,11 +6,21 @@ module.exports = function(app) {
   var router = express.Router();
 
 app.get('/', function(req, res) {
+     var name= req.body.name; 
+    retro.findOne({ name:name }, function(err, user) {
 
-    res.render('intro.ejs');
-   
+    if (err) { return next(err); }  
+
+    console.log('req.body',req.body);
+    res.render("intro.ejs", { user: user});
+  });   
 });
 
+app.get('/profile', function(req, res) {
+
+    res.render('profile.ejs');
+   
+});
 
 app.post('/signup', function(req, res) {
 
@@ -20,11 +30,13 @@ app.post('/signup', function(req, res) {
     
     var cred= new retro ({ name:name,email:email,password:password}); 
      
-      cred.save( function(err, newUser) {
-      if(err) return next(err);
-      req.session.cred = name;      
-      return res.send('Logged In!');
-      console.log(newUser);
+    cred.save( function(err, newUser) {
+
+    if(err) return next(err);
+    req.session.cred = name;      
+    return res.send('Logged In!');
+    console.log(newUser);
+
     });
   });
 
@@ -34,33 +46,65 @@ app.get('/signup', function(req, res) {
    
 });
 
-app.get('/login', function(req, res) {
+ app.get('/login', function(req, res) {
 
-    res.render('login.ejs');
-   
-});
+      res.render('login.ejs');   
+  });
 
-app.post('/login', function (req, res, next) {
-   var email = req.body.email;
-   var password = req.body.password;
+ app.post('/login', function (req, res, next) {
 
-   retro.findOne({email:email,password:password}, function(err, user) {
-      if(err) return next(err);
-      if(!user) return res.send('Not logged in!');
+    var name = req.body.name;
+    var password = req.body.password;
 
-      req.session.user = email;
-      return res.send('Logged In!');
-   });
-});
+    retro.findOne({name:name,password:password}, function(err, user) {
+
+       if(err) return next(err);
+       if(!user) return res.render('login.ejs');
+
+       req.session.user = name;
+      
+      //return res.send('Logged In!');
+      
+       return res.redirect('/profile/'+name+'');      
+    });
+ });
 
 app.get('/logout', function (req, res) {
+
    req.session.user = null;
+
+});
+
+app.get("/profile/:name",isLoggedIn, function(req, res, next) {
+
+  var name=req.params.name;
+  console.log('req.body',req.params);
+
+  retro.findOne({ name: req.params.name }, function(err, user) {
+
+    if (err) { return next(err); }
+    console.log(user);
+    res.render("profile.ejs", { user: user });
+    //res.render("profile", { user: user });
+  });
 });
 
 //LoggedIn or Not
+function is (req, res, next) {
+
+  if ((req.session && req.session.user)) {
+    return res.redirect('/profile/'+name+'');  
+
+  }
+  next();
+ }
+
+
 function isLoggedIn (req, res, next) {
+
   if (!(req.session && req.session.user)) {
     return res.send('Not logged in!');
+
   }
   next();
  }

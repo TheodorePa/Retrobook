@@ -13,14 +13,14 @@ app.use(expressSession({secret:'secretsmanysecrets'}));
 var routes = require( './routes' );
 var retro    = require("./models/signup");
 
-mongoose.connect("mongodb://localhost/retro", function (error){
+mongoose.connect("mongodb://localhost/retro1", function (error){
    
    if (error) console.error(error);
    else console.log("mongo connected")
 
 });
 
-app.set("port", process.env.PORT || 80);
+app.set("port", process.env.PORT || 8080);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 

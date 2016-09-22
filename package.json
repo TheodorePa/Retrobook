@@ -7,6 +7,8 @@
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.5.2",
+    "es6": "0.0.7",
+    "exlist": "^0.6.0",
     "express": "^4.14.0",
     "express-session": "^1.14.1",
     "lightbox2": "^2.8.2",
