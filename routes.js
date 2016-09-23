@@ -6,13 +6,14 @@ module.exports = function(app) {
   var router = express.Router();
 
 app.get('/', function(req, res) {
-     var name= req.body.name; 
+
+    var name= req.body.name; 
     retro.findOne({ name:name }, function(err, user) {
 
-    if (err) { return next(err); }  
+    if (err) { return next(err); }
 
-    console.log('req.body',req.body);
     res.render("intro.ejs", { user: user});
+
   });   
 });
 
@@ -33,7 +34,8 @@ app.post('/signup', function(req, res) {
     cred.save( function(err, newUser) {
 
     if(err) return next(err);
-    req.session.cred = name;      
+    req.session.cred = name;  
+
     return res.send('Logged In!');
     console.log(newUser);
 
@@ -50,20 +52,20 @@ app.get('/signup', function(req, res) {
 
     var name = req.body.name;
     var password = req.body.password;
+
     retro.findOne({name:name,password:password}, function(err, user) {
 
      if(err) return next(err);
      if(!user) return res.render('login.ejs');
 
-       req.session.user = name;
-      
-      //return res.send('Logged In!');
+       req.session.user = name;     
       
        return res.redirect('/profile/'+name+'');      
     });
  });
 
 app.get('/logout', function (req, res) {
+
    req.session.user = null;
 
 });
@@ -86,12 +88,26 @@ app.get("/profile/:name", function(req, res, next) {
 
     if (err) { return next(err); }
     console.log(user);
+
     res.render("profile.ejs", { user: user });
-    //res.render("profile", { user: user });
+    
   });
 });
 
+app.get("/profile/:name/members", function(req, res, next) {
 
+  var name=req.params.name;
+  console.log('req.body',req.params);
+
+  retro.findOne({ name: req.params.name }, function(err, user) {
+
+    if (err) { return next(err); }
+    console.log(user);
+
+    res.render("members.ejs", { user: user });
+    
+  });
+});
 
 function isLoggedIn (req, res, next) {
 
