@@ -46,20 +46,14 @@ app.get('/signup', function(req, res) {
    
 });
 
- app.get('/login', function(req, res) {
-
-      res.render('login.ejs');   
-  });
-
- app.post('/login', function (req, res, next) {
+ app.post('/login', function (req, res,next) {
 
     var name = req.body.name;
     var password = req.body.password;
-
     retro.findOne({name:name,password:password}, function(err, user) {
 
-       if(err) return next(err);
-       if(!user) return res.render('login.ejs');
+     if(err) return next(err);
+     if(!user) return res.render('login.ejs');
 
        req.session.user = name;
       
@@ -70,12 +64,20 @@ app.get('/signup', function(req, res) {
  });
 
 app.get('/logout', function (req, res) {
-
    req.session.user = null;
 
 });
 
-app.get("/profile/:name",isLoggedIn, function(req, res, next) {
+ app.get('/login', function(req, res,next) {
+
+  if (req.session.user) 
+   return res.redirect("/profile/"+req.session.user+"");  
+    
+   return res.render('login');
+  
+});
+
+app.get("/profile/:name", function(req, res, next) {
 
   var name=req.params.name;
   console.log('req.body',req.params);
@@ -89,15 +91,6 @@ app.get("/profile/:name",isLoggedIn, function(req, res, next) {
   });
 });
 
-//LoggedIn or Not
-function is (req, res, next) {
-
-  if ((req.session && req.session.user)) {
-    return res.redirect('/profile/'+name+'');  
-
-  }
-  next();
- }
 
 
 function isLoggedIn (req, res, next) {
@@ -109,4 +102,5 @@ function isLoggedIn (req, res, next) {
   next();
  }
 } 
+
 

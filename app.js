@@ -5,9 +5,9 @@ var path = require('path');
 var mongoose = require('mongoose');
 
 var expressSession = require('express-session');
-var cookieParser = require('cookie-parser'); // the session is stored in a cookie, 
-//so we use this to parse it
-app.use(cookieParser());
+var cookieParser = require('cookie-parser'); 
+
+app.use(cookieParser('sdfsdfsdfdfffsfsf'));
 app.use(expressSession({secret:'secretsmanysecrets'}));
 
 var routes = require( './routes' );
@@ -25,7 +25,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: false}));
 
 require('./routes.js')(app);
 
