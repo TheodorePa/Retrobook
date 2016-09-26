@@ -8,14 +8,14 @@
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.5.2",
-    "es6": "0.0.7",
-    "exlist": "^0.6.0",
     "express": "^4.14.0",
     "express-session": "^1.14.1",
+    "formidable": "^1.0.17",
+    "fs-extra": "^0.30.0",
     "lightbox2": "^2.8.2",
     "mongoose": "^4.6.0",
     "nodemon": "^1.10.2",
-    "passport": "^0.3.2"
+    "quickthumb": "0.0.12"
   },
   "devDependencies": {},
   "scripts": {

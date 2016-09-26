@@ -4,6 +4,40 @@ module.exports = function(app) {
   var mongoose = require('mongoose');
   var retro = require("./models/signup");
   var router = express.Router();
+  var formidable = require('formidable');
+  var util = require('util');
+  var fs   = require('fs-extra');
+  var qt   = require('quickthumb')
+
+ app.post('/uploads', function (req, res){
+  var form = new formidable.IncomingForm();
+  form.parse(req, function(err, fields, files) {
+    console.log(files);
+   // res.writeHead(200, {'content-type': 'text/plain'});
+   // res.write('received upload:\n\n');
+   // res.send(files.upload.name);
+    res.send('Yeii')
+    //res.end(util.inspect({fields: fields, files: files}));
+  });
+
+  form.on('end', function(fields, files) {
+    /* Temporary location of our uploaded file */
+    var temp_path = this.openedFiles[0].path;
+    /* The file name of the uploaded file */
+    var file_name = this.openedFiles[0].name;
+    /* Location where we want to copy the uploaded file */
+    var new_location = 'uploads/';
+
+    fs.copy(temp_path, new_location + file_name, function(err) {  
+      if (err) {
+        console.error(err);
+      } else {
+        console.log("success!")
+      }
+    });
+  });
+});
+ 
 
 app.get('/', function(req, res) {
 
@@ -28,9 +62,10 @@ app.post('/signup', function(req, res) {
     var name= req.body.name; 
     var email = req.body.email;
     var password = req.body.password;	
-    
-    var cred= new retro ({ name:name,email:email,password:password}); 
-     
+    var file = req.body.file;
+
+    var cred= new retro ({ name:name,email:email,password:password, file:file}); 
+     console.log(req.body)
     cred.save( function(err, newUser) {
 
     if(err) return next(err);
@@ -96,7 +131,7 @@ app.get("/profile/:name", function(req, res, next) {
 
 app.get("/profile/:name/members", function(req, res, next) {
 
-  var name=req.params.name;
+   
   console.log('req.body',req.params);
 
   retro.findOne({ name: req.params.name }, function(err, user) {
@@ -108,6 +143,40 @@ app.get("/profile/:name/members", function(req, res, next) {
     
   });
 });
+
+app.get("/profile/:name/home", function(req, res, next) {
+
+  var file= req.params.file;
+  var name=req.params.name;
+  console.log('req.body',req.params);
+
+  retro.findOne({ name: req.params.name }, function(err, user) {
+
+    if (err) { return next(err); }
+    console.log(user);
+    
+    res.render("home.ejs", { user: user });
+    
+  });
+});
+
+
+
+app.get("/profile/:name/news", function(req, res, next) {
+
+  var name=req.params.name;
+  console.log('req.body',req.params);
+
+  retro.findOne({ name: req.params.name }, function(err, user) {
+
+    if (err) { return next(err); }
+    console.log(user);
+
+    res.render("news.ejs", { user: user });
+    
+  });
+});
+
 
 function isLoggedIn (req, res, next) {
 

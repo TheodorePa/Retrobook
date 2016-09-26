@@ -3,12 +3,18 @@ var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
+var formidable = require('formidable');
+var util = require('util');
+var fs   = require('fs-extra');
+var qt   = require('quickthumb');
 
 var expressSession = require('express-session');
 var cookieParser = require('cookie-parser'); 
 
 app.use(cookieParser('sdfsdfsdfdfffsfsf'));
 app.use(expressSession({secret:'secretsmanysecrets'}));
+
+app.use(qt.static(__dirname + '/'));
 
 var routes = require( './routes' );
 var retro    = require("./models/signup");
@@ -26,6 +32,7 @@ app.set("view engine", "ejs");
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: false}));
+
 
 require('./routes.js')(app);
 

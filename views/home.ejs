@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Welcome</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/js/photo.js"></script>  
+<link href="/css/profile.css" rel="stylesheet" type="text/css">
+</head>
+ 
+<body>
+
+<div class= " container ">
+  <div class= " row ">
+    <div class="col-md-4"></div>
+       <div class="col-md-4">
+      <div id="f1_container" class="hover">
+        <div id="f1_card" class="shadow" onclick="toggle()">
+          <div class="front face">
+            <img  src="http://localhost:8080/uploads/<%=user.file %>" class="frame"/>
+          </div>
+          <div class="back face center">
+            <h1>T.P</h1>
+            <p>Write Something</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<form  action="/uploads" enctype="multipart/form-data" method="post"><br><input multiple="file" name="file" type="file" /><br><br><input type="submit" value="Upload" /></form>
+
+
+</div>
+</body>
+</html>

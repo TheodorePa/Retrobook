@@ -7,6 +7,10 @@ h1{
 p{
  color:#fff; 
 }
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+}
 #f1_container {
   position: relative;
   margin: 30px auto;
