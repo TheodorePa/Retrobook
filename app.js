@@ -19,7 +19,7 @@ app.use(qt.static(__dirname + '/'));
 var routes = require( './routes' );
 var retro    = require("./models/signup");
 
-mongoose.connect("mongodb://localhost/retro1", function (error){
+mongoose.connect("mongodb://localhost/retro2", function (error){
    
    if (error) console.error(error);
    else console.log("mongo connected")

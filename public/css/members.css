@@ -1,0 +1,82 @@
+body {
+  background-color: #C2B186;
+  background-image: url();
+  font-family: sans-serif;
+}
+.wrap {
+  margin: 20px auto;
+  max-width: 1100px;
+}
+
+.s1_3 {
+  width: 33.333%;
+  -webkit-box-sizing: border-box;
+  padding: 0 10px;
+  float: left;
+}
+
+.s1_3 .in {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, .25);
+}
+
+.in:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, .75);
+}
+
+.s1_3 img {
+
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+h2 {position:relative;}
+h2::before{
+  position: absolute;
+  content:".";
+  top: -10px;
+  border: 10px solid transparent;
+  border-bottom-color: #fff;
+  border-top-width: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  margin-left: 20px;
+}
+
+.s1_3 h2 a {
+  display: block;
+  padding: 20px;
+  font-size: 16px;
+  line-height: 1.5em;
+  color: #444;
+  background: #fff;
+  text-decoration: none;
+}
+
+h2 a:hover {
+  color: #000;
+}
+
+.s1_3 .meta {
+  padding: 15px 20px;
+  background: #eee;
+  font-size: 14px;
+  color: #888;
+}
+
+.s1_3 .meta a {
+  color: #444;
+  text-decoration: none;
+}
+
+.s1_3 .meta a:hover {
+  color: #000;
+}
+
+.more {  
+  background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRunokrUtHC74YE1WGcSd_cy43puQUvwZtqzBCxmcZlBLYlsi7m);
+  background-color: #eee;
+  display: block;
+  height: 10px;
+}

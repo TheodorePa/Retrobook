@@ -1,1 +1,26 @@
-members
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Members</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link href="/css/members.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+<% members.forEach(function(user) { %>
+<div class="wrap">
+  <div class="s1_3">
+    <div class="in">
+     
+      <h2><a href="/profile/<%= user.name %>/home"><%= user.name %></a></h2>
+    </div>
+  </div>
+</div>
+  <% }) %>
+
+
+</body>
+</html>
