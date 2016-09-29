@@ -3,10 +3,11 @@ var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
-var formidable = require('formidable');
-var util = require('util');
-var fs   = require('fs-extra');
-var qt   = require('quickthumb');
+var multer  = require('multer');
+// var formidable = require('formidable');
+// var util = require('util');
+// var fs   = require('fs-extra');
+// var qt   = require('quickthumb');
 
 var expressSession = require('express-session');
 var cookieParser = require('cookie-parser'); 
@@ -14,12 +15,12 @@ var cookieParser = require('cookie-parser');
 app.use(cookieParser('sdfsdfsdfdfffsfsf'));
 app.use(expressSession({secret:'secretsmanysecrets'}));
 
-app.use(qt.static(__dirname + '/'));
+//app.use(qt.static(__dirname + '/'));
 
 var routes = require( './routes' );
 var retro    = require("./models/signup");
 
-mongoose.connect("mongodb://localhost/retro2", function (error){
+mongoose.connect("mongodb://localhost/retro45", function (error){
    
    if (error) console.error(error);
    else console.log("mongo connected")

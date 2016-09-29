@@ -14,6 +14,7 @@
     "fs-extra": "^0.30.0",
     "lightbox2": "^2.8.2",
     "mongoose": "^4.6.0",
+    "multer": "^1.2.0",
     "nodemon": "^1.10.2",
     "quickthumb": "0.0.12"
   },

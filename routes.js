@@ -4,43 +4,54 @@ module.exports = function(app) {
   var mongoose = require('mongoose');
   var retro = require("./models/signup");
   var router = express.Router();
-  var formidable = require('formidable');
-  var util = require('util');
-  var fs   = require('fs-extra');
-  var qt   = require('quickthumb')
+  var multer  = require('multer');
+  // var formidable = require('formidable');
+  // var util = require('util');
+  // var fs   = require('fs-extra');
+  // var qt   = require('quickthumb')
 
- app.post('/uploads', function (req, res){
-  var file= req.body.file; 
-  var form = new formidable.IncomingForm();
-  form.parse(req, function(err, fields, files) {
-    console.log(req.body);   
-    res.redirect('back');
+//  app.post('/uploads', function (req, res){
+//   var file= req.body.file; 
+//   var form = new formidable.IncomingForm();
+//   form.parse(req, function(err, fields, files) {
+//     console.log(req.body);   
+//     res.redirect('back');
     
-  });
+//   });
 
-  form.on('end', function(fields, files) {
+//   form.on('end', function(fields, files) {
    
-    var temp_path = this.openedFiles[0].path;
+//     var temp_path = this.openedFiles[0].path;
    
-    var file_name = this.openedFiles[0].name;
+//     var file_name = this.openedFiles[0].name;
  
-    var new_location = 'uploads/';
+//     var new_location = 'uploads/';
 
-    fs.copy(temp_path, new_location + file_name, function(err) {  
-      if (err) {
-        console.error(err);
-      } else {
-        console.log("success!")
-      }
-    });
-  });
+//     fs.copy(temp_path, new_location + file_name, function(err) {  
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         console.log("success!")
+//       }
+//     });
+//   });
+// });
+ 
+var storage = multer.diskStorage({
+   destination: function (req, file, cb) {
+     console.log("Dest");
+     cb(null, 'public/images')
+   },
+   filename: function (req, file, cb) {
+     cb(null, file.originalname )//fieldname + '-' + Date.now()
+   }
 });
- 
 
 app.get('/', function(req, res) {
 
     var name= req.body.name; 
     retro.findOne({ name:name }, function(err, user) {
+
 
     if (err) { return next(err); }
 
@@ -54,22 +65,24 @@ app.get('/profile', function(req, res) {
     res.render('profile.ejs');
    
 });
+var upload = multer({ storage: storage });
 
-app.post('/signup', function(req, res) {
-
+app.post('/signup', upload.single('file'), function(req, res) {
+    
     var name= req.body.name; 
     var email = req.body.email;
     var password = req.body.password;	
-    var file = req.body.file;
-
-    var cred= new retro ({ name:name,email:email,password:password, file:file}); 
-     console.log(req.body)
+    var file = req.file.originalname;
+    
+    var cred= new retro ({ name:name,email:email,password:password, file: req.file.originalname}); 
+     // console.log(req.body)
+     // console.log(req.file.originalname)
     cred.save( function(err, newUser) {
 
     if(err) return next(err);
     req.session.cred = name;  
 
-    return res.send('Logged In!');
+    return res.send("login");
     console.log(newUser);
 
     });
@@ -115,7 +128,8 @@ app.get('/logout', function (req, res) {
 app.get("/profile/:name", function(req, res, next) {
 
   var name=req.params.name;
-  console.log('req.body',req.params);
+  var file= req.params.file;
+  //console.log('req.body',req.params);
 
   retro.findOne({ name: req.params.name }, function(err, user) {
 
@@ -142,14 +156,18 @@ app.get("/profile/:name/members", function(req, res, next) {
 
 app.get("/profile/:name/home", function(req, res, next) {
 
-  var file= req.params.file;
+  
   var name=req.params.name;
+  var file=req.params.file;
+
   console.log('req.body',req.params);
 
-  retro.findOne({ name: req.params.name }, function(err, user) {
+  retro.find({ name: req.params.name, file:req.files }, function(err, user) {
 
     if (err) { return next(err); }
-    console.log(user);
+    console.log("dasdasd"+user);
+    console.log(req.params);
+
     
     res.render("home.ejs", { user: user });
     

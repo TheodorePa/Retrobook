@@ -8,14 +8,30 @@
 </head>
  
 <body>
-
-<div class="container">
+    <div class= " container ">
+  <div class= " row ">
+    <div class="col-md-4"></div>
+       <div class="col-md-4">
+      <div id="f1_container" class="hover">
+        <div id="f1_card" class="shadow" onclick="toggle()">
+          <div class="front face">
+            <img  src="http://localhost:8080/images/<%=user.file%>" class="frame"/>
+          </div>
+          <div class="back face center">
+            <h1><%=user.name%></h1>
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!--<div class="container">
   <div class="row">
     <div class="col-md-4">
       <div id="f1_container" class="hover">
         <div id="f1_card" class="shadow" onclick="toggle()">
           <div class="front face">
-            <img src="http://www.benitz.com/BzJosephineK1830/PhotosCaliTrip/P37FtRossSE_ChapelPCard_s70c20.jpg" class="frame"/>
+            <img src="http://localhost:8080/images/<%=user.file%>"/>
           </div>
           <div class="back face center">
            <a href="/profile/<%= user.name %>/home">  <h1>HOME</h1>
@@ -23,10 +39,28 @@
           </div>
         </div>
       </div>
-    </div>
-
-
+    </div> -->
+ <div id="center">   
+<!--<div class="container">
+  <div class="row">
     <div class="col-md-4">
+      <div id="f1_container" class="hover">
+        <div id="f1_card" class="shadow" onclick="toggle()">
+          <div class="front face">
+            <img src=" http://www.19thc-artworldwide.org/images/stories/spring_15/articles/garv26.jpg"/>
+          </div>
+          <div class="back face center">
+           <a href="/profile/<%= user.name %>/home">  <h1>HOME</h1>
+            <p>SEE MY PAGE</p> </a>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+
+
+
+    <div class="col-md-6">
       <div id="f1_container" class="hover">
         <div id="f1_card" class="shadow" onclick="toggle()">
           <div class="front face">
@@ -41,7 +75,7 @@
     </div>
 
 
-    <div class="col-md-4">
+    <div class="col-md-6">
       <div id="f1_container" class="hover">
         <div id="f1_card" class="shadow" onclick="toggle()">
           <div class="front face">
@@ -55,7 +89,7 @@
       </div>
     </div>
   </div>
- 
+ </div>
 
 
 </body>
