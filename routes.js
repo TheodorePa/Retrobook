@@ -154,26 +154,45 @@ app.get("/profile/:name/members", function(req, res, next) {
   });
 });
 
+ app.post("/profile", function(req, res, next) {
+
+    var write = req.body.write   
+    
+    var creds= new retro ({ write:write}); 
+     // console.log(req.body)
+     // console.log(req.file.originalname)
+    creds.save( function(err, newUser) {
+
+    if(err) return next(err);
+    
+    console.log(newUser);
+    return res.redirect("back");
+    
+
+    });
+  });
+
 app.get("/profile/:name/home", function(req, res, next) {
 
   
   var name=req.params.name;
   var file=req.params.file;
+  var write=req.params.write;
 
   console.log('req.body',req.params);
 
-  retro.find({ name: req.params.name, file:req.files }, function(err, user) {
+  retro.find({  }, function(err, user) {
 
-    if (err) { return next(err); }
-    console.log("dasdasd"+user);
-    console.log(req.params);
+    //if (err) { return next(err); }
+    // console.log("dasdasd"+user);
+    // console.log(req.params);
 
+console.log('req.body',req.params);
     
     res.render("home.ejs", { user: user });
     
   });
 });
-
 
 
 app.get("/profile/:name/news", function(req, res, next) {

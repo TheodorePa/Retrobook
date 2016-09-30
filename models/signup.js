@@ -5,6 +5,7 @@ var retroSchema = mongoose.Schema({
   password: {type: String},
   email: {type: String},
   file:{type: String},
+  write:{type:String},
   createdAt: { type: Date, default: Date.now }
 });
 

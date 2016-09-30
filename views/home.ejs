@@ -7,29 +7,33 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="/js/photo.js"></script>  
 <link href="/css/profile.css" rel="stylesheet" type="text/css">
+<link href="/css/home.css" rel="stylesheet" type="text/css">
 </head>
  
 <body>
 
-<div class= " container ">
-  <div class= " row ">
-    <div class="col-md-4"></div>
-       <div class="col-md-4">
-      <div id="f1_container" class="hover">
-        <div id="f1_card" class="shadow" onclick="toggle()">
-          <div class="front face">
-            <img  src="" class="frame"/>
-          </div>
-          <div class="back face center">
-            <h1>T.P</h1>
-            <p>Write Something</p>
-          </div>
-        </div>
+<div class="container">
+  <div class="col-md-4 col-md-offset-4">
+    <h2>Write Something</h2>
+    <form action    =  "/profile"
+     method    =  "post">
+      <div class="form-group" >
+        <input type="text" class="form-control" name ="write" id="write">
+        <div class="col-md-4 col-md-offset-4">
+          <button type="submit" class="btn btn-danger">Submit</button></div>
       </div>
+  </div>
+  </form>
+
+<% user.forEach(function(users) { %>
+<div class="wrap">
+  
+    <li><%= users.write %>-<%= users.name %></li> 
+         
+        
     </div>
 
-
-
+  <% }) %>
 
 </div>
 </body>
