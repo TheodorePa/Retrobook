@@ -12,27 +12,17 @@
  
 <body>
 
-<div class="container">
-  <div class="col-md-4 col-md-offset-4">
-    <h2>Write Something</h2>
-    <form action    =  "/profile"
-     method    =  "post">
-      <div class="form-group" >
-        <input type="text" class="form-control" name ="write" id="write">
-        <div class="col-md-4 col-md-offset-4">
-          <button type="submit" class="btn btn-danger">Submit</button></div>
-      </div>
-  </div>
-  </form>
+
+     
 
 <% user.forEach(function(users) { %>
 <div class="wrap">
-  
-    <li><%= users.write %>-<%= users.name %></li> 
+   <h3> <a href="/profile/<%= users.name %>"><%= users.name %></a></h3>  
+      <h4><%= users.write %></h4>
+     
          
         
     </div>
-
   <% }) %>
 
 </div>

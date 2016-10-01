@@ -3,8 +3,10 @@ module.exports = function(app) {
   var express = require('express');
   var mongoose = require('mongoose');
   var retro = require("./models/signup");
+  var writes = require("./models/writes");
   var router = express.Router();
   var multer  = require('multer');
+
   // var formidable = require('formidable');
   // var util = require('util');
   // var fs   = require('fs-extra');
@@ -127,11 +129,12 @@ app.get('/logout', function (req, res) {
 
 app.get("/profile/:name", function(req, res, next) {
 
-  var name=req.params.name;
-  var file= req.params.file;
+  var name = req.params.name;
+  var write = req.params.write;
   //console.log('req.body',req.params);
-
+  
   retro.findOne({ name: req.params.name }, function(err, user) {
+
 
     if (err) { return next(err); }
     console.log(user);
@@ -141,8 +144,31 @@ app.get("/profile/:name", function(req, res, next) {
   });
 });
 
-app.get("/profile/:name/members", function(req, res, next) {
+app.post("/profile/:name", function(req, res, next) {
 
+  var name = req.params.name;
+  var write = req.body.write;
+  var file = req.params.file;
+  //console.log('req.body',req.params);
+
+  retro.findOne({ name: name }, function(err, user) {
+
+     var creds= new writes ({name:name, write:write, file:file}); 
+
+     // console.log(req.body)
+    
+    creds.save( function(err) {
+
+    if(err) return next(err);
+    
+    console.log(user);
+    res.render("profile.ejs", { user: user });
+    
+  });
+ });
+});
+
+app.get("/profile/:name/members", function(req, res, next) {
    
   console.log('req.body',req.params);
 
@@ -154,45 +180,29 @@ app.get("/profile/:name/members", function(req, res, next) {
   });
 });
 
- app.post("/profile", function(req, res, next) {
-
-    var write = req.body.write   
-    
-    var creds= new retro ({ write:write}); 
-     // console.log(req.body)
-     // console.log(req.file.originalname)
-    creds.save( function(err, newUser) {
-
-    if(err) return next(err);
-    
-    console.log(newUser);
-    return res.redirect("back");
-    
-
-    });
-  });
-
-app.get("/profile/:name/home", function(req, res, next) {
+ app.get("/profile/:name/home", function(req, res, next) {
 
   
-  var name=req.params.name;
-  var file=req.params.file;
-  var write=req.params.write;
+   var name=req.params.name;
+   var file=req.params.file;
+   var write=req.params.write;
 
-  console.log('req.body',req.params);
-
-  retro.find({  }, function(err, user) {
+   console.log('req.body',req.params);
+writes.find()
+  .sort({ createdAt: "descending" })
+  .exec
+   ( function(err, user) {
 
     //if (err) { return next(err); }
-    // console.log("dasdasd"+user);
-    // console.log(req.params);
+     // console.log("dasdasd"+user);
+     // console.log(req.params);
 
-console.log('req.body',req.params);
+ console.log('req.body',req.params);
     
-    res.render("home.ejs", { user: user });
+     res.render("home.ejs", { user: user });
     
-  });
-});
+   });
+ });
 
 
 app.get("/profile/:name/news", function(req, res, next) {
@@ -215,7 +225,6 @@ function isLoggedIn (req, res, next) {
 
   if (!(req.session && req.session.user)) {
     return res.send('Not logged in!');
-
   }
   next();
  }

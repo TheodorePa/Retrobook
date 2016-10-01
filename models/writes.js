@@ -1,15 +1,17 @@
 var mongoose = require("mongoose");
 
-var retroSchema = mongoose.Schema({
+var writeSchema = mongoose.Schema({
   name: { type: String },
   password: {type: String},
   email: {type: String},
-  file:{type: String},  
+  file:{type: String},
+  write:{type:String},
   createdAt: { type: Date, default: Date.now }
+
+
 });
 
 
-var retro = mongoose.model("retro", retroSchema);
+var writes = mongoose.model("writes", writeSchema);
 
-module.exports = retro;
-
+module.exports = writes;
