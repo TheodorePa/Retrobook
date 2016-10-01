@@ -145,7 +145,7 @@ app.get("/profile/:name", function(req, res, next) {
   });
 });
 
-app.post("/profile/:name", function(req, res, next) {
+app.post("/profile/:name", isLoggedIn,function(req, res, next) {
 
   var name = req.params.name;
   var write = req.body.write;
@@ -225,7 +225,7 @@ app.get("/profile/:name/news", function(req, res, next) {
 function isLoggedIn (req, res, next) {
 
   if (!(req.session && req.session.user)) {
-    return res.send('Not logged in!');
+    return res.send('You are not a good person!');
   }
   next();
  }
