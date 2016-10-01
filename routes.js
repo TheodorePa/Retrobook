@@ -84,7 +84,8 @@ app.post('/signup', upload.single('file'), function(req, res) {
     if(err) return next(err);
     req.session.cred = name;  
 
-    return res.send("login");
+    //return res.send("login");
+    return res.redirect('/profile/'+name+''); 
     console.log(newUser);
 
     });
@@ -115,7 +116,7 @@ app.get('/signup', function(req, res) {
 app.get('/logout', function (req, res) {
 
    req.session.user = null;
-
+res.redirect("/")
 });
 
  app.get('/login', function(req, res,next) {
@@ -162,7 +163,7 @@ app.post("/profile/:name", function(req, res, next) {
     if(err) return next(err);
     
     console.log(user);
-    res.render("profile.ejs", { user: user });
+    return res.redirect('/profile/'+name+'/home');   
     
   });
  });

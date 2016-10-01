@@ -5,7 +5,8 @@ body{
   background-color: #818181;
   background-repeat: no-repeat;
   margin: 0 auto;
-  float: none; 
+  float: none;
+  text-align:center;
   background-attachment: fixed;
   background-position: center;
  

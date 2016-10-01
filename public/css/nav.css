@@ -1,0 +1,115 @@
+/* Navigation Menu */
+.main-navigation {
+	text-align: center;
+	clear: both;
+}
+.main-navigation li {
+	font-size: 20px;
+	
+}
+.main-navigation a {
+	color: #5e5e5e;	
+}
+.main-navigation a:hover {
+	color: #21759b;	
+}
+.main-navigation ul.nav-menu,
+.main-navigation div.nav-menu > ul {display: none;}
+
+.main-navigation ul.nav-menu.toggled-on,
+.menu-toggle {
+	display: inline-block;
+}
+.menu-toggle {
+	margin: 16px 0;
+	margin: 1.1428571429rem 0;
+}
+
+.main-navigation ul.nav-menu.toggled-on li {margin-bottom: 12px;}
+
+.hassubchild:after {
+	content: 'V';
+  padding-left:5px;
+  font-size:7px;
+  color:#147852;
+}
+
+
+
+
+
+@media screen and (min-width: 600px) {
+.main-navigation ul.nav-menu,
+	.main-navigation div.nav-menu > ul {					
+		display: inline-block !important;
+		text-align: center; 
+		width: 100%;					
+	}
+	
+	.main-navigation ul {	
+		text-indent: 0;
+	}
+	.main-navigation li a,
+	.main-navigation li {
+		display: inline-block;
+		text-decoration: none;
+		
+		margin: 0 16px; 
+		margin: 0 1.1428571429rem;	
+	}
+	.main-navigation li a {
+		border-bottom: 0;
+		color: #6a6a6a;
+		padding: 12px 0;
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
+	.main-navigation li a:hover {color: #89CBBF;}
+	.main-navigation li { 
+		position: relative;
+		margin: 0;
+	}
+	
+	.main-navigation li:hover {background: #ededed;}
+		
+	.main-navigation li ul {
+		display: none;
+		margin: 0;
+		padding: 0;
+		position: absolute;
+		top: 100%;
+		z-index: 1;
+	}
+	.main-navigation li ul ul {
+		top: 0;
+		left: 100%;
+	}
+	.main-navigation ul li:hover > ul {
+		border-left: 0;
+		display: block;
+	}
+	.main-navigation li ul li a {
+		background: #efefef;
+		border-bottom: 1px solid #ededed;
+		display: block;
+		font-size: 11px;
+		font-size: 0.7857142857rem;
+		padding: 8px 10px;
+		padding: 0.5714285714rem 0.7142857143rem;
+		width: 180px;
+		width: 12.857142857rem;
+		white-space: normal;
+		margin: 0;
+	}
+	.main-navigation li ul li a:hover {
+		background: #e3e3e3;		
+		color: #89CBBF;
+	}
+	.main-navigation .current-menu-item > a,
+	.main-navigation .current-menu-ancestor > a,
+	.main-navigation .current_page_item > a,
+	.main-navigation .current_page_ancestor > a {
+		color: #89CBBF;
+		font-weight: bold;
+	}
+}
