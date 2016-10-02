@@ -6,26 +6,29 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="/js/photo.js"></script>  
-<link href="/css/profile.css" rel="stylesheet" type="text/css">
+
+<link href="/css/members.css" rel="stylesheet" type="text/css">
 <link href="/css/home.css" rel="stylesheet" type="text/css">
 <link href="/css/nav.css" rel="stylesheet" type="text/css">
 </head>
   <% include partials/headerhome.ejs %>
 <body>
 
-
+<center><h1>Writings on The Wall</h1></center>/
      
 
 <% user.forEach(function(users) { %>
 <div class="wrap">
+  <div class="s1_3">
+    <div class="in">
    <h3> <a href="/profile/<%= users.name %>"><%= users.name %></a></h3>  
       <h4><%= users.write %></h4>
-     
-         
-        
     </div>
+  </div>
+</div>
   <% }) %>
 
 </div>
+<img src='https://1.bp.blogspot.com/-jXS_iaWZwUE/Td6GWOMdc_I/AAAAAAAAATI/WjlaHcy-R5g/s1600/wall+02.jpg' style='position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:-1;'>
 </body>
 </html>

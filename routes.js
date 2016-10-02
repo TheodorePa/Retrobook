@@ -4,6 +4,7 @@ module.exports = function(app) {
   var mongoose = require('mongoose');
   var retro = require("./models/signup");
   var writes = require("./models/writes");
+  var privates = require("./models/privates");
   var router = express.Router();
   var multer  = require('multer');
 
@@ -38,7 +39,44 @@ module.exports = function(app) {
 //     });
 //   });
 // });
- 
+
+ app.get("/profile/:name/private", function(req, res, next) {
+
+    var name= req.params.name;
+    var private = req.params.private; 
+    console.log(name);              
+
+
+    privates.find({name:name})
+      .sort({ createdAt: "descending" })
+      .exec(function(err, user) {
+        if (err) { return next(err); }
+        res.render("prive.ejs", { user: user}); 
+      });
+    });
+     
+
+ app.post("/profile/:name/private",isLoggedIn, function(req, res, next) {
+
+      var name=  req.params.name; 
+      var private= req.body.private; 
+      retro.findOne({ name: name }, function(err, user) {
+
+     var creds= new privates({name:name, private:private}); 
+
+     // console.log(req.body)
+    
+    creds.save( function(err) {
+
+    if(err) return next(err);
+    
+    console.log(user);
+    return res.redirect('/profile/'+name+'/private');   
+    
+  });
+ });
+});
+
 var storage = multer.diskStorage({
    destination: function (req, file, cb) {
      console.log("Dest");

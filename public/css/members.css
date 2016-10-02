@@ -1,13 +1,20 @@
 body {
   background-color: #C2B186;
-  background-image: url();
+  background-image: url("");
+  font-family: sans-serif;
+}
+
+h1{
   font-family: sans-serif;
 }
 .wrap {
   margin: 20px auto;
   max-width: 1100px;
 }
-
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+}
 .s1_3 {
   width: 33.333%;
   -webkit-box-sizing: border-box;

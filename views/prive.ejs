@@ -1,0 +1,28 @@
+  <!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Welcome</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link href="/css/profile.css" rel="stylesheet" type="text/css">
+<link href="/css/nav.css" rel="stylesheet" type="text/css">
+<link href="/css/members.css" rel="stylesheet" type="text/css">
+<script src="/js/profile.js"></script>  
+</head>
+<% include partials/headermembers.ejs %>
+<body>
+
+
+<% user.forEach(function(users) { %>
+<div class="wrap">
+  <div class="s1_3">
+    <div class="in">          
+         <h4><%= users.private %></h4>
+    </div>
+  </div>
+</div>
+  <% }) %>
+<img src='http://backgrounds.picaboo.com/download/9f/f0/9f05d20942b947ba827fdd3c61cd2e39/vintage_notebook.jpg' style='position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:-1; opacity:0.6;'>
+
+  </body>
+</html>

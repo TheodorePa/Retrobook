@@ -4,7 +4,8 @@ var retroSchema = mongoose.Schema({
   name: { type: String },
   password: {type: String},
   email: {type: String},
-  file:{type: String},  
+  file:{type: String}, 
+  private:{type: String},   
   createdAt: { type: Date, default: Date.now }
 });
 
