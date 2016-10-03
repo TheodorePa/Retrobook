@@ -40,7 +40,7 @@ module.exports = function(app) {
 //   });
 // });
 
- app.get("/profile/:name/private", function(req, res, next) {
+ app.get("/profile/:name/private", isLoggedIn, function(req, res, next) {
 
     var name= req.params.name;
     var private = req.params.private; 
@@ -51,14 +51,15 @@ module.exports = function(app) {
       .sort({ createdAt: "descending" })
       .exec(function(err, user) {
         if (err) { return next(err); }
+        if (!user ) { res.redirect("back")};
         res.render("prive.ejs", { user: user}); 
       });
     });
      
 
- app.post("/profile/:name/private",isLoggedIn, function(req, res, next) {
+ app.post("/profile/:name/private", isLoggedIn, function(req, res, next) {
 
-      var name=  req.params.name; 
+      var name=  req.session.user; 
       var private= req.body.private; 
       retro.findOne({ name: name }, function(err, user) {
 
@@ -69,7 +70,7 @@ module.exports = function(app) {
     creds.save( function(err) {
 
     if(err) return next(err);
-    
+    if (!user ) { res.redirect("back")};  
     console.log(user);
     return res.redirect('/profile/'+name+'/private');   
     
@@ -154,7 +155,7 @@ app.get('/signup', function(req, res) {
 app.get('/logout', function (req, res) {
 
    req.session.user = null;
-res.redirect("/")
+   res.redirect("/")
 });
 
  app.get('/login', function(req, res,next) {
@@ -166,18 +167,17 @@ res.redirect("/")
   
 });
 
-app.get("/profile/:name", function(req, res, next) {
-
+app.get("/profile/:name",  function(req, res, next) {
+ 
   var name = req.params.name;
   var write = req.params.write;
   //console.log('req.body',req.params);
   
-  retro.findOne({ name: req.params.name }, function(err, user) {
+  retro.findOne({ name: name }, function(err, user) {
 
 
-    if (err) { return next(err); }
-    console.log(user);
-
+    if (err)  return next(err);  
+    console.log(user);     
     res.render("profile.ejs", { user: user });
     
   });
@@ -185,26 +185,26 @@ app.get("/profile/:name", function(req, res, next) {
 
 app.post("/profile/:name", isLoggedIn,function(req, res, next) {
 
-  var name = req.params.name;
+  var name = req.session.user;
   var write = req.body.write;
   var file = req.params.file;
   //console.log('req.body',req.params);
 
   retro.findOne({ name: name }, function(err, user) {
 
-     var creds= new writes ({name:name, write:write, file:file}); 
+  var creds= new writes ({name:name, write:write, file:file}); 
 
-     // console.log(req.body)
-    
-    creds.save( function(err) {
-
-    if(err) return next(err);
-    
-    console.log(user);
-    return res.redirect('/profile/'+name+'/home');   
-    
-  });
- });
+  console.log(user)
+   
+  creds.save( function(err) {
+     
+  if(err) return next(err);
+      
+  console.log(user);
+  return res.redirect('/profile/'+name+'/home'); 
+     
+      });
+   });
 });
 
 app.get("/profile/:name/members", function(req, res, next) {
@@ -219,7 +219,7 @@ app.get("/profile/:name/members", function(req, res, next) {
   });
 });
 
- app.get("/profile/:name/home", function(req, res, next) {
+ app.get("/profile/:name/home", isLoggedIn, function(req, res, next) {
 
   
    var name=req.params.name;
@@ -227,7 +227,7 @@ app.get("/profile/:name/members", function(req, res, next) {
    var write=req.params.write;
 
    console.log('req.body',req.params);
-writes.find()
+   writes.find()
   .sort({ createdAt: "descending" })
   .exec
    ( function(err, user) {
@@ -236,28 +236,27 @@ writes.find()
      // console.log("dasdasd"+user);
      // console.log(req.params);
 
- console.log('req.body',req.params);
-    
-     res.render("home.ejs", { user: user });
+ console.log('req.body',req.params);  
+ res.render("home.ejs", { user: user });
     
    });
  });
 
 
-app.get("/profile/:name/news", function(req, res, next) {
+// app.get("/profile/:name/news", function(req, res, next) {
 
-  var name=req.params.name;
-  console.log('req.body',req.params);
+//   var name=req.params.name;
+//   console.log('req.body',req.params);
 
-  retro.findOne({ name: req.params.name }, function(err, user) {
+//   retro.findOne({ name: req.params.name }, function(err, user) {
 
-    if (err) { return next(err); }
-    console.log(user);
+//     if (err) { return next(err); }
+//     console.log(user);
 
-    res.render("news.ejs", { user: user });
+//     res.render("news.ejs", { user: user });
     
-  });
-});
+//   });
+// });
 
 
 function isLoggedIn (req, res, next) {
