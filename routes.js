@@ -121,8 +121,9 @@ app.post('/signup', upload.single('file'), function(req, res) {
     cred.save( function(err, newUser) {
 
     if(err) return next(err);
-    req.session.cred = name;  
-
+    // req.flash('error', err.message);
+    //req.session.cred = name;  
+     req.session.user = name; 
     //return res.send("login");
     return res.redirect('/profile/'+name+''); 
     console.log(newUser);

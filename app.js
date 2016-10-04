@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
 var multer  = require('multer');
+var flash = require('connect-flash');
 // var formidable = require('formidable');
 // var util = require('util');
 // var fs   = require('fs-extra');
@@ -34,6 +35,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: false}));
 
+app.use(flash());
 
 require('./routes.js')(app);
 
