@@ -29,12 +29,16 @@
     </div>  
 
  <div class="col-md-4 col-md-offset-4"> 
-    <form id = "prive" action="/profile/<%=user.name%>/private" method = "post"> 
-    <h2>Write Something in private</h2>
+    <form id = "uploadForm"  enctype   =  "multipart/form-data" action="/profile/<%=user.name%>/private" method = "post"> 
+    <center><h2>Upload a Photo in private</h2></center>
   <input class="form-control" type="text" name="private" required="true" maxlength="10" placeholder="Write on your wall" value="">  
-  <div class="col-md-4 col-md-offset-4">
-  <input type="submit" class="btn btn-danger" value="Submit">
-</form></div></div>
+  
+  <div class="form-group">
+          <label for="Photos"></label>
+          <input type="file"  class="form-control"  name="photos" required="true" />
+        </div>        
+        <center><input type="submit" class="btn btn-danger" value="Upload" /></center>
+</form></div>
     <!--<div class="container">
   <div class="row">
     <div class="col-md-4">
@@ -102,7 +106,7 @@
  </div>
 <div class="container">
   <div class="col-md-4 col-md-offset-4">
-    <h2>Write Something in public</h2>
+    <center><h2>Write Something in public</h2></center>
     <form action    =  "/profile/<%=user.name%>"
      method    =  "post">
       <div class="form-group" >
@@ -114,7 +118,7 @@
 
 </div>
         <div class="col-md-4 col-md-offset-4">
-          <button type="submit" class="btn btn-danger">Post</button></div>
+         <center> <button id="sub" type="submit" class="btn btn-danger">Post</button></center></div>
       </div>
   </div>
 <img src='https://gamespervertsplay.files.wordpress.com/2012/02/dusty-books-the-burden.jpg' style='position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:-1; opacity:0.8;'>

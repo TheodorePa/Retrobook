@@ -1,7 +1,8 @@
 var mongoose = require("mongoose");
 
 var privateSchema = mongoose.Schema({
-  name: { type: String },  
+  name: { type: String }, 
+  photos: { type: String },
   private:{type:String},
   createdAt: { type: Date, default: Date.now }
 

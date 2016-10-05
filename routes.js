@@ -39,11 +39,22 @@ module.exports = function(app) {
 //     });
 //   });
 // });
+var storage = multer.diskStorage({
+   destination: function (req, file, cb) {
+     console.log("Dest");
+     cb(null, 'public/images')
+   },
+   filename: function (req, file, cb) {
+     cb(null, file.originalname )//fieldname + '-' + Date.now()
+   }
+});
 
  app.get("/profile/:name/private", isLoggedIn, function(req, res, next) {
 
     var name= req.params.name;
     var private = req.params.private; 
+     var photos =  req.params.photos;
+
     console.log(name);              
 
 
@@ -56,14 +67,16 @@ module.exports = function(app) {
       });
     });
      
-
- app.post("/profile/:name/private", isLoggedIn, function(req, res, next) {
+var upload = multer({ storage: storage });
+ app.post("/profile/:name/private", upload.single('photos'), isLoggedIn, function(req, res, next) {
 
       var name=  req.session.user; 
-      var private= req.body.private; 
+      var private= req.body.private;
+      var photos = req.file.originalname; 
+    
       retro.findOne({ name: name }, function(err, user) {
 
-     var creds= new privates({name:name, private:private}); 
+     var creds= new privates({name:name, private:private, photos:photos}); 
 
      // console.log(req.body)
     
@@ -78,15 +91,7 @@ module.exports = function(app) {
  });
 });
 
-var storage = multer.diskStorage({
-   destination: function (req, file, cb) {
-     console.log("Dest");
-     cb(null, 'public/images')
-   },
-   filename: function (req, file, cb) {
-     cb(null, file.originalname )//fieldname + '-' + Date.now()
-   }
-});
+
 
 app.get('/', function(req, res) {
 
@@ -185,7 +190,7 @@ app.get("/profile/:name",  function(req, res, next) {
 });
 
 app.post("/profile/:name", isLoggedIn,function(req, res, next) {
-
+  
   var name = req.session.user;
   var write = req.body.write;
   var file = req.params.file;
