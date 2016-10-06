@@ -21,7 +21,7 @@ app.use(expressSession({secret:'secretsmanysecrets'}));
 var routes = require( './routes' );
 var retro    = require("./models/signup");
 
-mongoose.connect("mongodb://localhost/retro86", function (error){
+mongoose.connect("mongodb://ha:123@ds053216.mlab.com:53216/retro", function (error){
    
    if (error) console.error(error);
    else console.log("mongo connected")
