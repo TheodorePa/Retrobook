@@ -13,15 +13,15 @@ var flash = require('connect-flash');
 var expressSession = require('express-session');
 var cookieParser = require('cookie-parser'); 
 
-app.use(cookieParser('sdfsdfsdfdfffsfsf'));
-app.use(expressSession({secret:'secretsmanysecrets'}));
+app.use(cookieParser('bla'));
+app.use(expressSession({secret:'bla2'}));
 
 //app.use(qt.static(__dirname + '/'));
 
 var routes = require( './routes' );
 var retro    = require("./models/signup");
 
-mongoose.connect("mongodb://localhost/retro86", function (error){
+mongoose.connect("mongodb://localhost/bla3", function (error){
    
    if (error) console.error(error);
    else console.log("mongo connected")
