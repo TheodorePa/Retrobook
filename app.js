@@ -14,10 +14,7 @@ var methodOverride = require('method-override')
 var expressSession = require('express-session');
 var cookieParser = require('cookie-parser'); 
 
-<<<<<<< HEAD
 app.use(methodOverride('_method'));
-=======
->>>>>>> origin/master
 app.use(cookieParser('bla'));
 app.use(expressSession({secret:'bla2'}));
 
@@ -27,9 +24,9 @@ var routes = require( './routes' );
 var retro    = require("./models/signup");
 
 mongoose.connect("mongodb://localhost/bla3", function (error){
-   
-   if (error) console.error(error);
-   else console.log("mongo connected")
+	
+	if (error) console.error(error);
+	else console.log("mongo connected")
 
 });
 
@@ -47,6 +44,6 @@ app.use(flash());
 require('./routes.js')(app);
 
 app.listen(app.get("port"), function() {
-  console.log("Server started on port " + app.get("port"));
+	console.log("Server started on port " + app.get("port"));
 });
 

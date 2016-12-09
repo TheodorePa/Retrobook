@@ -29,9 +29,9 @@
 
 .hassubchild:after {
 	content: 'V';
-  padding-left:5px;
-  font-size:7px;
-  color:#147852;
+	padding-left:5px;
+	font-size:7px;
+	color:#147852;
 }
 
 
@@ -39,7 +39,7 @@
 
 
 @media screen and (min-width: 600px) {
-.main-navigation ul.nav-menu,
+	.main-navigation ul.nav-menu,
 	.main-navigation div.nav-menu > ul {					
 		display: inline-block !important;
 		text-align: center; 
@@ -71,7 +71,7 @@
 	}
 	
 	.main-navigation li:hover {background: #ededed;}
-		
+	
 	.main-navigation li ul {
 		display: none;
 		margin: 0;

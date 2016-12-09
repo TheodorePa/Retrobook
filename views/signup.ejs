@@ -1,49 +1,49 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>Welcome!</title>
+  <title>Welcome!</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="/js/signup.js"></script>
-   <link href="/css/signup.css" rel="stylesheet" type="text/css">
-    <link href="/css/nav.css" rel="stylesheet" type="text/css">
+  <link href="/css/signup.css" rel="stylesheet" type="text/css">
+  <link href="/css/nav.css" rel="stylesheet" type="text/css">
 </head>
 <% include partials/headerlog.ejs %>
 <body>
 
-<div class="container">  
+  <div class="container">  
     <div id="app" class="col-md-2">
-    
+      
       <form id        =  "uploadForm"
-     enctype   =  "multipart/form-data"
-     action    =  "/signup"
-     method    =  "post"
->
-        <div class="form-group">
-          <label for="usr">Name:</label>
-          <input width="pixels"type="text" class="form-control" required="true" maxlength="10" name="name" />
-        </div>
-        <div class="form-group">
-          <label for="mail">Email:</label>
-          <input type="text" class="form-control"  required="true" maxlength="20" name="email" />
-        </div>
-        <div class="form-group">
-          <label for="pwd">Password:</label>
-         <input type="text" class="form-control" required="true" maxlength="10" name="password" />
-        </div>
-        <div class="form-group">
-          <label for="Photo">Photo:</label>
-          <input type="file"  class="form-control" required="true" name="file" />
-        </div>
-        <h2>Signup Please</h2>
-        <center><input type="submit" value="Upload" /></center>
-         
-        </form>
+      enctype   =  "multipart/form-data"
+      action    =  "/signup"
+      method    =  "post"
+      >
+      <div class="form-group">
+        <label for="usr">Name:</label>
+        <input width="pixels"type="text" class="form-control" required="true" maxlength="10" name="name" />
+      </div>
+      <div class="form-group">
+        <label for="mail">Email:</label>
+        <input type="text" class="form-control"  required="true" maxlength="20" name="email" />
+      </div>
+      <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="text" class="form-control" required="true" maxlength="10" name="password" />
+      </div>
+      <div class="form-group">
+        <label for="Photo">Photo:</label>
+        <input type="file"  class="form-control" required="true" name="file" />
+      </div>
+      <h2>Signup Please</h2>
+      <center><input type="submit" value="Upload" /></center>
+      
+    </form>
 
-    </div>  
+  </div>  
 </div>
   <!-- <form id        =  "uploadForm"
      enctype   =  "multipart/form-data"
@@ -56,25 +56,25 @@
 <input type="text" name="password" />
 <input type="submit" value="Upload Image" name="submit">
 </form>-->
-         
+
      <!--   </form>
-<form  action="/uploads" enctype="multipart/form-data" method="post"><br><input multiple="file" name="file" id="file" type="file" /><br><br><input type="submit" value="Upload" /></form> -->
-    </div>  
-</div>
+     <form  action="/uploads" enctype="multipart/form-data" method="post"><br><input multiple="file" name="file" id="file" type="file" /><br><br><input type="submit" value="Upload" /></form> -->
+   </div>  
+ </div>
 
 </body>
 </html>
 <!doctype html>
 <html lang="en">
 <head>
-<title>Welcome!</title>
+  <title>Welcome!</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="/js/signup.js"></script>
-   <link href="/css/signup.css" rel="stylesheet" type="text/css">
+  <link href="/css/signup.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>

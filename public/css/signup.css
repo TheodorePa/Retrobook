@@ -9,8 +9,8 @@ body{
   text-align:center;
   background-attachment: fixed;
   background-position: center;
- 
-    }
+  
+}
 
 h2 {
   -webkit-filter: grayscale(100%);
@@ -33,16 +33,16 @@ h2 {
 
 .transition {
   filter: grayscale(100%);
-    -webkit-transform: scale(1.6); 
-    -moz-transform: scale(1.6);
-    -o-transform: scale(1.6);
-    transform: scale(1.6);
+  -webkit-transform: scale(1.6); 
+  -moz-transform: scale(1.6);
+  -o-transform: scale(1.6);
+  transform: scale(1.6);
 }
 
 form{  
   filter: grayscale(100%);
-	-webkit-transition: all .4s ease-in-out;
-	-moz-transition: all .4s ease-in-out;
-	-o-transition: all .4s ease-in-out;
-	-ms-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  -moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -ms-transition: all .4s ease-in-out;
 }

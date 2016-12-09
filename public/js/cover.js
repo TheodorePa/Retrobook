@@ -5,18 +5,18 @@ $( document ).ready(function() {
 $(document).ready(function(){
     $(".btn1").hover(function() {
         $(".btn1").addClass('transition');
-    
+        
     }, function() {
         $(".btn1").removeClass('transition');
     });
 
-     $(".btn2").hover(function() {
+    $(".btn2").hover(function() {
         $(".btn2").addClass('transition');
-    
+        
     }, function() {
         $(".btn2").removeClass('transition');
     });
-     
+    
     $('a.btn1').fancybox({
         type: 'iframe',
         fitToView: true,
@@ -25,7 +25,7 @@ $(document).ready(function(){
         openSpeed: 'slow'
     });
 
-       $('a.btn2').fancybox({
+    $('a.btn2').fancybox({
         type: 'iframe',
         fitToView: true,
         autoSize: true,
@@ -33,6 +33,6 @@ $(document).ready(function(){
         openSpeed: 'slow'
     });
     
-  });
-  
+});
+
 

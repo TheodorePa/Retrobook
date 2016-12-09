@@ -8,13 +8,13 @@
  //    });
 
  // $(document).ready(function() {
-			
-           
+ 	
+ 	
  //               $.getJSON('upload', function(p) {
-                 
+ 	
  //                  $('#f').append('<img src ='  + p.name+ '');
-                
+ 
  //               });
  //            });
-				
-       
+ 
+ 
