@@ -5,6 +5,7 @@ var path = require('path');
 var mongoose = require('mongoose');
 var multer  = require('multer');
 var flash = require('connect-flash');
+var methodOverride = require('method-override')
 // var formidable = require('formidable');
 // var util = require('util');
 // var fs   = require('fs-extra');
@@ -13,15 +14,16 @@ var flash = require('connect-flash');
 var expressSession = require('express-session');
 var cookieParser = require('cookie-parser'); 
 
-app.use(cookieParser('sdfsdfsdfdfffsfsf'));
-app.use(expressSession({secret:'secretsmanysecrets'}));
+app.use(methodOverride('_method'));
+app.use(cookieParser('bla'));
+app.use(expressSession({secret:'bla2'}));
 
 //app.use(qt.static(__dirname + '/'));
 
 var routes = require( './routes' );
 var retro    = require("./models/signup");
 
-mongoose.connect("mongodb://ha:123@ds053216.mlab.com:53216/retro", function (error){
+mongoose.connect("mongodb://localhost/bla3", function (error){
    
    if (error) console.error(error);
    else console.log("mongo connected")
@@ -33,7 +35,9 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+
 
 app.use(flash());
 

@@ -13,6 +13,7 @@
     "formidable": "^1.0.17",
     "fs-extra": "^0.30.0",
     "lightbox2": "^2.8.2",
+    "method-override": "^2.3.7",
     "mongoose": "^4.6.0",
     "multer": "^1.2.0",
     "nodemon": "^1.10.2",
@@ -20,8 +21,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-     "start": "node app.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Theodore P",
   "license": "ISC"

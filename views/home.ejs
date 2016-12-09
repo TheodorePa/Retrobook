@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="/js/photo.js"></script>  
+<script src="/js/home.js"></script>
 
 <link href="/css/members.css" rel="stylesheet" type="text/css">
 <link href="/css/home.css" rel="stylesheet" type="text/css">
@@ -18,14 +19,22 @@
      
 
 <% user.forEach(function(users) { %>
+
 <div class="wrap">
   <div class="s1_3">
     <div class="in">
-   <h3> <a href="/profile/<%= users.name %>"><%= users.name %></a></h3>  
-      <h4><%= users.write %></h4>
+    <form method="post" action="/profile/<%= users.name %>/home/<%= users.id %>">
+    <input type="hidden" name="_method" value="delete"/>
+    <h3> <a href="/profile/<%= users.name %>"><%= users.name %></a> 
+
+      <h4><%= users.write %></h4>   
+    
+  	 <button id="destroy" type="submit" class="btn-danger center-block"> Delete</button> 
+     </form>
     </div>
   </div>
 </div>
+
   <% }) %>
 
 </div>

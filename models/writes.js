@@ -7,11 +7,7 @@ var writeSchema = mongoose.Schema({
   file:{type: String},
   write:{type:String},
   createdAt: { type: Date, default: Date.now }
-
-
 });
 
-
 var writes = mongoose.model("writes", writeSchema);
-
 module.exports = writes;

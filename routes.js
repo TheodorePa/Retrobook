@@ -1,17 +1,17 @@
-module.exports = function(app) {
-  
-  var express = require('express');
-  var mongoose = require('mongoose');
-  var retro = require("./models/signup");
-  var writes = require("./models/writes");
-  var privates = require("./models/privates");
-  var router = express.Router();
-  var multer  = require('multer');
+module.exports = function (app) {
 
-  // var formidable = require('formidable');
-  // var util = require('util');
-  // var fs   = require('fs-extra');
-  // var qt   = require('quickthumb')
+    var express = require('express');
+    var mongoose = require('mongoose');
+    var retro = require("./models/signup");
+    var writes = require("./models/writes");
+    var privates = require("./models/privates");
+    var router = express.Router();
+    var multer = require('multer');
+
+    // var formidable = require('formidable');
+    // var util = require('util');
+    // var fs   = require('fs-extra');
+    // var qt   = require('quickthumb')
 
 //  app.post('/uploads', function (req, res){
 //   var file= req.body.file; 
@@ -19,15 +19,15 @@ module.exports = function(app) {
 //   form.parse(req, function(err, fields, files) {
 //     console.log(req.body);   
 //     res.redirect('back');
-    
+
 //   });
 
 //   form.on('end', function(fields, files) {
-   
+
 //     var temp_path = this.openedFiles[0].path;
-   
+
 //     var file_name = this.openedFiles[0].name;
- 
+
 //     var new_location = 'uploads/';
 
 //     fs.copy(temp_path, new_location + file_name, function(err) {  
@@ -39,214 +39,230 @@ module.exports = function(app) {
 //     });
 //   });
 // });
-var storage = multer.diskStorage({
-   destination: function (req, file, cb) {
-     console.log("Dest");
-     cb(null, 'public/images')
-   },
-   filename: function (req, file, cb) {
-     cb(null, file.originalname )//fieldname + '-' + Date.now()
-   }
-});
-
- app.get("/profile/:name/private", isLoggedIn, function(req, res, next) {
-
-    var name= req.params.name;
-    var private = req.params.private; 
-     var photos =  req.params.photos;
-
-    console.log(name);              
-
-
-    privates.find({name:name})
-      .sort({ createdAt: "descending" })
-      .exec(function(err, user) {
-        if (err) { return next(err); }
-        if (!user ) { res.redirect("back")};
-        res.render("prive.ejs", { user: user}); 
-      });
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            console.log("Dest");
+            cb(null, 'public/images')
+        },
+        filename: function (req, file, cb) {
+            cb(null, file.originalname)//fieldname + '-' + Date.now()
+        }
     });
-     
-var upload = multer({ storage: storage });
- app.post("/profile/:name/private", upload.single('photos'), isLoggedIn, function(req, res, next) {
 
-      var name=  req.session.user; 
-      var private= req.body.private;
-      var photos = req.file.originalname; 
-    
-      retro.findOne({ name: name }, function(err, user) {
+    app.get("/profile/:name/private", isLoggedIn, function (req, res, next) {
 
-     var creds= new privates({name:name, private:private, photos:photos}); 
+        var name = req.params.name;
+        var private = req.params.private;
+        var photos = req.params.photos;
 
-     // console.log(req.body)
-    
-    creds.save( function(err) {
-
-    if(err) return next(err);
-    if (!user ) { res.redirect("back")};  
-    console.log(user);
-    return res.redirect('/profile/'+name+'/private');   
-    
-  });
- });
-});
+        console.log(name);
 
 
+        privates.find({name: name})
+            .sort({createdAt: "descending"})
+            .exec(function (err, user) {
+                if (err) {
+                    return next(err);
+                }
+                if (!user) {
+                    res.redirect("back")
+                };
+                res.render("prive.ejs", {user: user});
+                    });
+                });
 
-app.get('/', function(req, res) {
+    var upload = multer({storage: storage});
+    app.post("/profile/:name/private", upload.single('photos'), isLoggedIn, function (req, res, next) {
 
-    var name= req.body.name; 
-    retro.findOne({ name:name }, function(err, user) {
+        var name = req.session.user;
+        var private = req.body.private;
+        var photos = req.file.originalname;
+
+        retro.findOne({name: name}, function (err, user) {
+
+            var creds = new privates({name: name, private: private, photos: photos});
+
+            // console.log(req.body)
+
+            creds.save(function (err) {
+
+                if (err) return next(err);
+                if (!user) {
+                    res.redirect("back")
+                };
+                console.log(user);
+                return res.redirect('/profile/' + name + '/private');
+
+            });
+        });
+    });
 
 
-    if (err) { return next(err); }
+    app.get('/', function (req, res) {
 
-    res.render("intro.ejs", { user: user});
+        var name = req.body.name;
+        retro.findOne({name: name}, function (err, user) {
 
-  });   
-});
+            if (err) {
+                return next(err);
+            }
 
-app.get('/profile', function(req, res) {
+            res.render("intro.ejs", {user: user});
 
-    res.render('profile.ejs');
-   
-});
-var upload = multer({ storage: storage });
+        });
+    });
 
-app.post('/signup', upload.single('file'), function(req, res) {
-    
-    var name= req.body.name; 
-    var email = req.body.email;
-    var password = req.body.password;	
-    var file = req.file.originalname;
-    
-    var cred= new retro ({ name:name,email:email,password:password, file: req.file.originalname}); 
-     // console.log(req.body)
-     // console.log(req.file.originalname)
-    cred.save( function(err, newUser) {
+    app.get('/profile', function (req, res) {
 
-    if(err) return next(err);
-    // req.flash('error', err.message);
-    //req.session.cred = name;  
-     req.session.user = name; 
-    //return res.send("login");
-    return res.redirect('/profile/'+name+''); 
-    console.log(newUser);
+        res.render('profile.ejs');
 
     });
-  });
 
-app.get('/signup', function(req, res) {
+    var upload = multer({storage: storage});
 
-    res.render('signup.ejs');
-   
-});
+    app.post('/signup', upload.single('file'), function (req, res) {
 
- app.post('/login', function (req, res,next) {
+        var name = req.body.name;
+        var email = req.body.email;
+        var password = req.body.password;
+        var file = req.file.originalname;
 
-    var name = req.body.name;
-    var password = req.body.password;
+        var cred = new retro({name: name, email: email, password: password,file: req.file.originalname});
+        // console.log(req.body)
+        // console.log(req.file.originalname)
+        cred.save(function (err, newUser) {
 
-    retro.findOne({name:name,password:password}, function(err, user) {
+            if (err) return next(err);
+            // req.flash('error', err.message);
+            //req.session.cred = name;
+            req.session.user = name;
+            //return res.send("login");
+            return res.redirect('/profile/' + name + '');
+            console.log(newUser);
 
-     if(err) return next(err);
-     if(!user) return res.render('login.ejs');
-
-       req.session.user = name;     
-      
-       return res.redirect('/profile/'+name+'');      
+        });
     });
- });
 
-app.get('/logout', function (req, res) {
+    app.get('/signup', function (req, res) {
+        res.render('signup.ejs');
+    });
 
-   req.session.user = null;
-   res.redirect("/")
-});
+    app.post('/login', function (req, res, next) {
 
- app.get('/login', function(req, res,next) {
+        var name = req.body.name;
+        var password = req.body.password;
 
-  if (req.session.user) 
-   return res.redirect("/profile/"+req.session.user+"");  
-    
-   return res.render('login');
-  
-});
+        retro.findOne({name: name, password: password}, function (err, user) {
 
-app.get("/profile/:name",  function(req, res, next) {
+            if (err) return next(err);
+            if (!user) return res.render('login.ejs');
+
+            req.session.user = name;
+
+            return res.redirect('/profile/' + name + '');
+        });
+    });
+
+    app.get('/logout', function (req, res) {
+
+        req.session.user = null;
+        res.redirect("/")
+    });
+
+    app.get('/login', function (req, res, next) {
+
+        if (req.session.user)
+            return res.redirect("/profile/" + req.session.user + "");
+
+        return res.render('login');
+
+    });
  
-  var name = req.params.name;
-  var write = req.params.write;
-  //console.log('req.body',req.params);
-  
-  retro.findOne({ name: name }, function(err, user) {
+    app.get("/profile/:name", function (req, res, next) {
 
+        var name = req.params.name;
+        var write = req.params.write;
+        //console.log('req.body',req.params);
 
-    if (err)  return next(err);  
-    console.log(user);     
-    res.render("profile.ejs", { user: user });
-    
-  });
-});
+        retro.findOne({name: name}, function (err, user) {
 
-app.post("/profile/:name", isLoggedIn,function(req, res, next) {
-  
-  var name = req.session.user;
-  var write = req.body.write;
-  var file = req.params.file;
-  //console.log('req.body',req.params);
+            if (err)  return next(err);
+            console.log(user);
+            res.render("profile.ejs", {user: user});
 
-  retro.findOne({ name: name }, function(err, user) {
+        });
+    });
 
-  var creds= new writes ({name:name, write:write, file:file}); 
+    app.post("/profile/:name", isLoggedIn, function (req, res, next) {
 
-  console.log(user)
-   
-  creds.save( function(err) {
-     
-  if(err) return next(err);
-      
-  console.log(user);
-  return res.redirect('/profile/'+name+'/home'); 
-     
+        var name = req.session.user;
+        var write = req.body.write;
+        var file = req.params.file;
+        //console.log('req.body',req.params);
+
+        retro.findOne({name: name}, function (err, user) {
+
+            var creds = new writes({name: name, write: write, file: file});
+
+            console.log(user)
+
+            creds.save(function (err) {
+
+                if (err) return next(err);
+
+                console.log(user);
+                return res.redirect('/profile/' + name + '/home');
+
+            });
+        });
+    });
+
+    app.get("/profile/:name/members", function (req, res, next) {
+
+        console.log('req.body', req.params);
+
+        retro.find()
+            .sort({createdAt: "descending"})
+            .exec(function (err, members) {
+                if (err) {
+                    return next(err);
+                }
+                res.render("members", {members: members});
+            });
       });
-   });
-});
 
-app.get("/profile/:name/members", function(req, res, next) {
-   
-  console.log('req.body',req.params);
-
-  retro.find()
-  .sort({ createdAt: "descending" })
-  .exec(function(err, members) {
-    if (err) { return next(err); }
-    res.render("members", { members: members });
+    //delete function
+     app.post('/profile/:name/home/:id', isLoggedIn, function(req, res, next) { 
+     var name = req.params.name;            
+     writes.findByIdAndRemove(req.params.id,req.body, function (err,user) {       
+       
+     res.redirect('/profile/:name/home/');
+    });
   });
-});
-
- app.get("/profile/:name/home", isLoggedIn, function(req, res, next) {
+  //delete function
 
   
-   var name=req.params.name;
-   var file=req.params.file;
-   var write=req.params.write;
+    app.get("/profile/:name/home", isLoggedIn, function (req, res, next) {
 
-   console.log('req.body',req.params);
-   writes.find()
-  .sort({ createdAt: "descending" })
-  .exec
-   ( function(err, user) {
+        var name = req.params.name;
+        var file = req.params.file;
+        var write = req.params.write;
 
-    //if (err) { return next(err); }
-     // console.log("dasdasd"+user);
-     // console.log(req.params);
+        console.log('req.body', req.params);
+        writes.find()
+            .sort({createdAt: "descending"})
+            .exec
+            (function (err, user) {
 
- console.log('req.body',req.params);  
- res.render("home.ejs", { user: user });
-    
-   });
- });
+                //if (err) { return next(err); }
+                // console.log("dasdasd"+user);
+                // console.log(req.params);
+
+                console.log('req.body', req.params);
+                res.render("home.ejs", {user: user});
+
+            });
+    });
 
 
 // app.get("/profile/:name/news", function(req, res, next) {
@@ -260,18 +276,17 @@ app.get("/profile/:name/members", function(req, res, next) {
 //     console.log(user);
 
 //     res.render("news.ejs", { user: user });
-    
+
 //   });
 // });
 
+    function isLoggedIn(req, res, next) {
 
-function isLoggedIn (req, res, next) {
+        if (!(req.session && req.session.user)) {
+            return res.send('You are not a good person!');
+                    }
+        next();
+    }
+  } 
 
-  if (!(req.session && req.session.user)) {
-    return res.send('You are not a good person!');
-  }
-  next();
- }
-} 
-
-
+  
