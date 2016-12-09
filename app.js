@@ -14,7 +14,10 @@ var methodOverride = require('method-override')
 var expressSession = require('express-session');
 var cookieParser = require('cookie-parser'); 
 
+<<<<<<< HEAD
 app.use(methodOverride('_method'));
+=======
+>>>>>>> origin/master
 app.use(cookieParser('bla'));
 app.use(expressSession({secret:'bla2'}));
 
