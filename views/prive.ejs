@@ -5,6 +5,7 @@
   	<title>Welcome</title>
   	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
   	<link href="/css/profile.css" rel="stylesheet" type="text/css">
+    <script src="/js/home.js"></script>
   	<link href="/css/nav.css" rel="stylesheet" type="text/css">
   	<link href="/css/members.css" rel="stylesheet" type="text/css">
   	<script src="/js/profile.js"></script>  
@@ -18,8 +19,15 @@
   		<div class="s1_3">
   			<div class="in">
   				
-  				<h4><%= users.private %></h4>
-  				<img  src="http://localhost:8080/images/<%= users.photos %>" />
+  				<!-- <h4><%= users.private %></h4> -->
+
+<form method="post" action="/profile/<%= users.name %>/private/<%= users.id %>">
+          <input type="hidden" name="_method" value="delete"/>        
+<h4><a href="/profile/<%= users.name %>"><%= users.name %></a></h4>
+            <img  src="http://localhost:8080/images/<%= users.photos %>" />
+           <%if (users.name ===names)  { %>
+            <button id="destroy" type="submit" class="btn-danger center-block"> Delete</button> <% } %>
+          </form>  				
   			</div>
   		</div>
   	</div>

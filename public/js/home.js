@@ -3,3 +3,4 @@ $(document).ready(function() {
 		confirm("Are you sure?");
 	});
 });
+

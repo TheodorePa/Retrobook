@@ -47,32 +47,11 @@
                 filename: function(req, file, cb) {
                     cb(null, file.originalname) //fieldname + '-' + Date.now()
                 }
-            });
-
-            app.get("/profile/:name/private", isLoggedIn, function(req, res, next) {
-
-                var name = req.params.name;
-                var private = req.params.private;
-                var photos = req.params.photos;
-
-                console.log(name);
-
-
-                privates.find({ name: name })
-                .sort({ createdAt: "descending" })
-                .exec(function(err, user) {
-                    if (err) {
-                        return next(err);
-                    }
-                    if (!user) {
-                        res.redirect("back")
-                    };
-                    res.render("prive.ejs", { user: user });
-                });
-            });
+            });           
 
             var upload = multer({ storage: storage });
-            app.post("/profile/:name/private", upload.single('photos'), isLoggedIn, function(req, res, next) {
+            app.post("/profile/:name/private", upload.single('photos'),
+             isLoggedIn, function(req, res, next) {
 
                 var name = req.session.user;
                 var private = req.body.private;
@@ -127,7 +106,8 @@
                 var password = req.body.password;
                 var file = req.file.originalname;
 
-                var cred = new retro({ name: name, email: email, password: password, file: req.file.originalname });
+                var cred = new retro({ name: name, email: email, 
+                    password: password, file: req.file.originalname });
                 // console.log(req.body)
                 // console.log(req.file.originalname)
                 cred.save(function(err, newUser) {
@@ -152,7 +132,8 @@
                 var name = req.body.name;
                 var password = req.body.password;
 
-                retro.findOne({ name: name, password: password }, function(err, user) {
+                retro.findOne({ name: name, password: password }, 
+                    function(err, user) {
 
                     if (err) return next(err);
                     if (!user) return res.render('login.ejs');
@@ -193,7 +174,8 @@
                 });
             });
 
-            app.post("/profile/:name", isLoggedIn, function(req, res, next) {
+            app.post("/profile/:name", isLoggedIn, 
+                function(req, res, next) {
 
                 var name = req.session.user;
                 var write = req.body.write;
@@ -202,7 +184,8 @@
 
                 retro.findOne({ name: name }, function(err, user) {
 
-                    var creds = new writes({ name: name, write: write, file: file });
+                    var creds = new writes({ name: name, 
+                        write: write, file: file });
 
                     console.log(user)
 
@@ -217,7 +200,7 @@
             });
 
             app.get("/profile/:name/members", function(req, res, next) {
-
+                var name = req.session.user;
                 console.log('req.body', req.params);
 
                 retro.find()
@@ -226,24 +209,59 @@
                     if (err) {
                         return next(err);
                     }
-                    res.render("members", { members: members });
+                    res.render("members", { members: members,name:name });
                 });
             });
 
             //delete function
-            app.post('/profile/:name/home/:id', isLoggedIn, function(req, res, next) {
-                var name = req.params.name;
-                writes.findOneAndRemove(req.params.id,req.body, function(err, user) {
+            app.post('/profile/:name/home/:id', 
+                isLoggedIn, function(req, res, next) {
+
+                var name = req.session.user;
+                writes.findByIdAndRemove(req.params.id,req.body, 
+                    function(err, user) {
                     console.log(user)
-                    res.redirect('/profile/:name/home/');
+                    res.redirect('back');
                 });
             });
             //delete function
 
+           //delete function
+           app.post('/profile/:name/private/:id',
+            isLoggedIn, function(req, res, next) {
 
-            app.get("/profile/:name/home", isLoggedIn, function(req, res, next) {
+                var name = req.session.user;
+                privates.findByIdAndRemove(req.params.id,req.body, 
+                    function(err, user) {
+                    console.log(user)
+                    res.redirect('back');
+                });
+            });
 
-                var name = req.params.name;
+            //delete function
+
+             app.get("/profile/:name/private", isLoggedIn, 
+                function(req, res, next) {
+
+                var names = req.session.user;
+                var name =req.params.name
+                var private = req.params.private;
+                var photos = req.params.photos;
+
+                console.log(name);
+
+                privates.find({ name:name})
+                .sort({ createdAt: "descending" })
+                .exec(function(err, user) {
+                    
+                    res.render("prive.ejs", { user: user,name: name,names:names });
+                });
+            });
+
+            app.get("/profile/:name/home", isLoggedIn, 
+                function(req, res, next) {
+
+                var name = req.session.user;
                 var file = req.params.file;
                 var write = req.params.write;
 

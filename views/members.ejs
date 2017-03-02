@@ -8,8 +8,16 @@
 	<link href="/css/nav.css" rel="stylesheet" type="text/css">
 	<link href="/css/nav.css" rel="stylesheet" type="text/css">
 </head>
-<% include partials/headermembers.ejs %>
-<body>
+<nav id="site-navigation" class="main-navigation" role="navigation">
+<div class="nav-menu">
+<ul>
+<li class="page_item page-item-30"><a href="/profile/<%= name %>">Back</a></li>
+       
+<li class="page_item page-item-30"><a href="/logout">Logout</a></li>        
+</li>      
+</ul>
+</div>
+</nav><body>
 
 	<% members.forEach(function(user) { %>
 	<div class="wrap">
